@@ -1,11 +1,10 @@
 <div align="center">
 
-# Auto-Sci
+# Sci-Miner
 
-### AI-Enabled Scientific Discovery and Visualization  
-### through Complex Computational Models
+### Sci-Miner: AI-Enabled Scientific Mining in Complex Computational Models
 
-**Auto-Sci transforms scientific source code into a connected science graph  
+**Sci-Miner transforms scientific source code into a connected science graph  
 for relationship exploration, equation discovery, and numerical validation.**
 
 <br>
@@ -36,7 +35,7 @@ Large scientific computational models contain extensive scientific knowledge.
 However, this knowledge is distributed across thousands of source files, 
 variables, equations, and model components.
 
-**Auto-Sci** converts scientific source code into a structured science graph. 
+**Sci-Miner** converts scientific source code into a structured science graph. 
 The framework allows researchers to:
 
 - explore scientific variables and equations;
