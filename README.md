@@ -59,10 +59,7 @@ connected scientific representation.
   <img src="figures/Figure 02.png" width="850" alt="Science graph">
 </p>
 
-### Open Interactive Science Graph
-[![Sci-Miner interactive graph preview](figures/auto_sci_demo.gif)](https://cosmograph.app/run/?data=https://raw.githubusercontent.com/Minhazul-Arefin/Sci-KG/71ec5ab751f5aaebf1a913e6614513bb96a7a5e3/cytoscape_kg_edges_with_e3sm.csv)
-
-[Click the preview to open the interactive graph in Cosmograph.](https://cosmograph.app/run/?data=https://raw.githubusercontent.com/Minhazul-Arefin/Sci-KG/71ec5ab751f5aaebf1a913e6614513bb96a7a5e3/cytoscape_kg_edges_with_e3sm.csv)
+[Click the preview to open the interactive science graph in Cosmograph.](https://cosmograph.app/run/?data=https://https://raw.githubusercontent.com/autonomybot/Sci-Miner/refs/heads/main/data/output/e3sm.csv)
 
 ### 2. Trace a scientific pathway
 
