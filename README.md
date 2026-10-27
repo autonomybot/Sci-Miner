@@ -24,7 +24,7 @@ for relationship exploration, equation discovery, and numerical validation.**
 
 <p align="center">
   <em>
-    Auto-Sci explores scientific knowledge extracted from E3SM source code
+    Sci-Miner explores scientific knowledge extracted from E3SM source code
     and identifies testable relationships between scientific quantities.
   </em>
 </p>
@@ -80,22 +80,15 @@ Auto-Sci identified two cross-module scientific relationships. For each relation
 The full mechanistic relationship is:
 
 ```math
-\rho_w =
-\frac{
-40g(\kappa z)^2 e^{-2\kappa_s z}
-}{
-w_s^2\left[(20Ri+1)^2-1\right]
-}
-\frac{\partial \rho_w}{\partial z}
+\rho_w = \frac{g\,(\kappa z)^2\, e^{-2k_s z}}{w_s^2\;\mathcal{R}i\,\left(10\,\mathcal{R}i + 1\right)}\cdot\frac{\partial \rho_w}{\partial z},
+    \qquad
+    \mathcal{R}i^2 = \frac{1}{37}\left(\frac{\kappa\, w_s\, z\, c_{wat}\, e^{-k_s z}}{\mathrm{savedtke}_1 - k_m\, c_{wat}} - 1\right).
 ```
 
 Auto-Sci then compresses this multi-equation pathway into the following interpretable surrogate:
 
 ```math
-\rho_w =
-998.42
-+ 0.15\log(\mathrm{savedtke1}+15.98)
-+ \frac{16.89}{\mathrm{savedtke1}+15.98}
+\rho_w=\frac{263.8000434}{R\,[10R+1]}, \quad R=\sqrt{\frac{1}{37}\left(\frac{1.100375669\times10^{10}}{\mathrm{savedtke}_1+7180533846}-1\right)}
 ```
 
 This relationship indicates that stored turbulent kinetic energy (`savedtke1`) influences water density through coupled turbulence, stability, and stratification processes.
@@ -105,25 +98,16 @@ This relationship indicates that stored turbulent kinetic energy (`savedtke1`) i
 The full mechanistic relationship is:
 
 ```math
-t_{\mathrm{soisno}} =
-Q_b
-+ \frac{10}{\ln Q_m}
-\ln\left[
-\frac{
-\epsilon C_t-\mathcal{D}_z(C)+\mathcal{L}_{CH_4}
-}{
-f_m B\phi(z)/\Delta z
-}
-\right]
+t_{\mathrm{soisno}} = Q_{10,\mathrm{base}} + \frac{10}{\ln Q_{10,\mathrm{CH_4}}}
+    \ln\!\left[ \frac{\epsilon \dfrac{\partial C}{\partial t} - \dfrac{\partial}{\partial z}\!\left(D\dfrac{\partial C}{\partial z}\right) + \mathcal{L}_{\mathrm{CH_4}}}
+    {f_{\mathrm{CH_4}}\; \mathrm{base_{decomp}}\; \phi(z)/dz} \right]
 ```
 
 Auto-Sci derives the following compact empirical surrogate:
 
 ```math
-t_{\mathrm{soisno}} =
-14.27
-+ 0.9363\ln\left(C+2.1\times10^{-4}\right)
-- \frac{0.00010367}{C+2.1\times10^{-4}}
+t_{\mathrm{soisno}}[\mathrm{K}] = 262.221+16.36611\left(\frac{C}{10^{-4}\,\mathrm{mol\,m^{-3}}}\right)-2.41791\left(\frac{C}{10^{-4}\,\mathrm{mol\,m^{-3}}}\right)^2 .
+    \label{eq:methane-temperature-surrogate}
 ```
 
 This relationship links soil temperature (`t_soisno`) with methane concentration (\(C\)) through methane production, transport, and loss processes.
@@ -138,18 +122,18 @@ For both case studies, the surrogate predictions are compared with the correspon
 
 | Directory | Description | Availability |
 |---|---|---|
-| `data/e3sm_fortran/` | E3SM Fortran files used as Auto-Sci inputs | Available |
-| `data/e3sm_validation/` | E3SM numerical data used for validation | Available |
-| `data/science_graph/` | Extracted science-graph nodes and edges | Available |
-| `results/equation_discovery/` | Discovered mathematical relationships | Available |
-| `results/equation_validation/` | Predictions, residuals, and error measurements | Available |
-| `results/supplementary_tables/` | Supporting numerical result tables | Available |
+| `data/input/fortran/` | E3SM Fortran source files used as inputs | Available |
+| `data/validation/` | E3SM numerical data used for validation | Available |
+| `data/output/` | Extracted science-graph nodes and edges | Available |
+| `graph_generator/` | Science-graph extraction and conversion tools | Available |
+| `path_mining_and_validation/` | Path mining, provenance checks, and numerical replay | Available |
+| `function_approximation/` | FEX-based equation discovery and surrogate fitting | Available |
+| `comparision/` | FEX, SINDy, neural-network, and path-recovery baselines | Available |
+| `e3sm_validation/` | Fixed-equation validation diagnostics | Available |
+| `results/` | Saved metrics, predictions, and supplementary tables | Available |
 | `figures/` | Framework, graph, pathway, and validation figures | Available |
-| `src/` | Complete Auto-Sci implementation | **Coming soon** |
+| `app/` | Interactive science-graph visualization and LLM-based questions | **Coming soon** |
 
-## Data
-
-The research data supporting Auto-Sci are organized into three groups.
 
 <details>
 <summary><strong>E3SM Fortran input files</strong></summary>
