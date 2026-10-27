@@ -52,7 +52,7 @@ The framework allows researchers to:
 
 ### 1. Explore the science graph
 
-Auto-Sci organizes variables, equations, files, and their dependencies into a 
+Sci-Miner organizes variables, equations, files, and their dependencies into a 
 connected scientific representation.
 
 <p align="center">
@@ -73,9 +73,9 @@ turbulent kinetic energy, `savedtke1`.
 
 ### 3. Discover and validate relationships
 
-## Scientific Relationships Discovered by Auto-Sci
+## Scientific Relationships Discovered by Sci-Miner
 
-Auto-Sci identified two cross-module scientific relationships. For each relationship, the framework reconstructs the full mechanistic dependency and derives a compact symbolic surrogate.
+Sci-Miner identified two cross-module scientific relationships. For each relationship, the framework reconstructs the full mechanistic dependency and derives a compact symbolic surrogate.
 
 ### 1. Lake water density and turbulent kinetic energy
 
@@ -87,7 +87,7 @@ The full mechanistic relationship is:
     \mathcal{R}i^2 = \frac{1}{37}\left(\frac{\kappa\, w_s\, z\, c_{wat}\, e^{-k_s z}}{\mathrm{savedtke}_1 - k_m\, c_{wat}} - 1\right).
 ```
 
-Auto-Sci then compresses this multi-equation pathway into the following interpretable surrogate:
+Sci-Miner then compresses this multi-equation pathway into the following interpretable surrogate:
 
 ```math
 \rho_w=\frac{263.8000434}{R\,[10R+1]}, \quad R=\sqrt{\frac{1}{37}\left(\frac{1.100375669\times10^{10}}{\mathrm{savedtke}_1+7180533846}-1\right)}
@@ -105,7 +105,7 @@ t_{\mathrm{soisno}} = Q_{10,\mathrm{base}} + \frac{10}{\ln Q_{10,\mathrm{CH_4}}}
     {f_{\mathrm{CH_4}}\; \mathrm{base_{decomp}}\; \phi(z)/dz} \right]
 ```
 
-Auto-Sci derives the following compact empirical surrogate:
+Sci-Miner derives the following compact empirical surrogate:
 
 ```math
 t_{\mathrm{soisno}}[\mathrm{K}] = 262.221+16.36611\left(\frac{C}{10^{-4}\,\mathrm{mol\,m^{-3}}}\right)-2.41791\left(\frac{C}{10^{-4}\,\mathrm{mol\,m^{-3}}}\right)^2 .
