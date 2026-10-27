@@ -109,8 +109,7 @@ t_{\mathrm{soisno}} = Q_{10,\mathrm{base}} + \frac{10}{\ln Q_{10,\mathrm{CH_4}}}
 Sci-Miner derives the following compact empirical surrogate:
 
 ```math
-t_{\mathrm{soisno}}[\mathrm{K}] = 262.221+16.36611\left(\frac{C}{10^{-4}\,\mathrm{mol\,m^{-3}}}\right)-2.41791\left(\frac{C}{10^{-4}\,\mathrm{mol\,m^{-3}}}\right)^2 .
-    \label{eq:methane-temperature-surrogate}
+t_{\mathrm{soisno}}[\mathrm{K}] = 262.221+16.36611\left(\frac{C}{10^{-4}\,\mathrm{mol\,m^{-3}}}\right)-2.41791\left(\frac{C}{10^{-4}\,\mathrm{mol\,m^{-3}}}\right)^2 
 ```
 
 This relationship links soil temperature (`t_soisno`) with methane concentration (\(C\)) through methane production, transport, and loss processes.
