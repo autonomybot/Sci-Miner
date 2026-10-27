@@ -1,0 +1,19 @@
+AI-Miner constrained one-variable FEX source-form regression
+==============================================================
+Target: rho_w; sole variable: S = savedtke_1.
+The Eq. 7 algebraic structure is fixed; FEX/least-squares optimizes alpha, beta, and gamma only.
+records: 26,283; random split: 70%/30%; seed: 0
+savedtke_1 range: 0.8967747622 to 1717252.6
+
+Fitted constants:
+  alpha = 263.800043415
+  beta  = 11003756692.6
+  gamma = -7180533845.87
+
+LaTeX equation:
+R(S)=\sqrt{\frac{1}{37}\left(\frac{1.100375669e+10}{S-(-7180533846)}-1\right)},\quad \rho_w(S)=\frac{263.8000434}{R(S)\,[10R(S)+1]},\quad S=\mathrm{savedtke}_1
+
+Metrics:
+{"all": {"mae": 0.4491973542928991, "n": 26283, "nrmse": 0.25310335090933467, "r2": -0.07196881118929355, "rmse": 0.7059828574558468}, "held_out": {"mae": 0.443900491434883, "n": 7885, "nrmse": 0.2500604595151575, "r2": -0.06714931209062702, "rmse": 0.6973426754911547}, "train": {"mae": 0.45146747950408816, "n": 18398, "nrmse": 0.2544193766452088, "r2": -0.07406453294660986, "rmse": 0.709653656780154}}
+
+Interpretation: the equation is a source-faithful one-variable form for a calibrated fixed-coefficient pathway. The held-out metrics determine whether those constants transfer beyond that calibration sample.

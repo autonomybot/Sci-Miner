@@ -1,0 +1,26 @@
+AI-Miner compact one-variable methane FEX-compatible search
+==============================================================
+Target: t_soisno [K]; sole predictor: C = conc_CH4_sat_col [mol m^-3].
+records: 8,746; random split: 70%/30%; seed: 0
+Candidate equations:
+  poly1: t_{\mathrm{soisno}}[\mathrm{K}] = 277.1010072 + 1.836722474\,u,\quad u=\frac{C}{10^{-4}\,\mathrm{mol\,m^{-3}}}
+    random holdout: {"mae": 6.120433744773987, "n": 2624, "r2": 0.1869178486088241, "rmse": 6.938117269518228}
+    chronological holdout: {"mae": 5.865093883777813, "n": 2624, "r2": -1.069085176379358, "rmse": 6.908720303547373}
+    worst-case holdout R2: -1.06908518
+  poly2: t_{\mathrm{soisno}}[\mathrm{K}] = 262.2210021 + 16.36611251\,u - 2.417919948\,u^{2},\quad u=\frac{C}{10^{-4}\,\mathrm{mol\,m^{-3}}}
+    random holdout: {"mae": 2.537375739189606, "n": 2624, "r2": 0.8134900866456741, "rmse": 3.3229620578343972}
+    chronological holdout: {"mae": 0.9390282272578919, "n": 2624, "r2": 0.9448183595087226, "rmse": 1.1282510072258318}
+    worst-case holdout R2: 0.81349009
+  poly3: t_{\mathrm{soisno}}[\mathrm{K}] = 268.2932093 + 4.663307594\,u + 2.584237023\,u^{2} - 0.5701343663\,u^{3},\quad u=\frac{C}{10^{-4}\,\mathrm{mol\,m^{-3}}}
+    random holdout: {"mae": 2.123268664691874, "n": 2624, "r2": 0.8950660347552578, "rmse": 2.4924844896119587}
+    chronological holdout: {"mae": 2.099259136117113, "n": 2624, "r2": 0.7398319268611648, "rmse": 2.449827054422431}
+    worst-case holdout R2: 0.73983193
+  log_inverse: t_{\mathrm{soisno}}[\mathrm{K}] = 38418668.79 - 4856243.521\,\ln(u+999.9998553) - 4872664773\,\frac{1}{u+999.9998553},\quad u=\frac{C}{10^{-4}\,\mathrm{mol\,m^{-3}}}
+    random holdout: {"mae": 2.5448808776251632, "n": 2624, "r2": 0.8125797244271915, "rmse": 3.33106194011735}
+    chronological holdout: {"mae": 0.9451051134951206, "n": 2624, "r2": 0.9441338298529101, "rmse": 1.135227429477719}
+    worst-case holdout R2: 0.81257972
+
+SELECTED EQUATION (poly2):
+t_{\mathrm{soisno}}[\mathrm{K}] = 262.2210021 + 16.36611251\,u - 2.417919948\,u^{2},\quad u=\frac{C}{10^{-4}\,\mathrm{mol\,m^{-3}}}
+all-record metrics: {"mae": 2.529067010405625, "n": 8746, "r2": 0.8125169416475427, "rmse": 3.3023954567122473}
+The equation is a short empirical screening surrogate; independent-period validation is still required.

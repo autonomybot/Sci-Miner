@@ -1,0 +1,18 @@
+[     0s] loading graphs and Fortran sources
+[     3s] edge-level validation of e3sm.csv against the Fortran files
+[     4s] line-level provenance of every equation
+[    13s] per-file traceability
+[    13s] variable provenance (declaration lines)
+[    14s] variables inside the matched statement
+[    14s] symbolic consistency on a random equation sample
+[    17s] numerical replay and surrogate validation
+[    81s] lake-chain S_num over 2 replayable steps = 0.4000
+[    81s] random-pair path-mining benchmark on e3sm.csv
+[    82s]   pair 0/150
+[    85s]   pair 25/150
+[    88s]   pair 50/150
+[    92s]   pair 75/150
+[    97s]   pair 100/150
+[   101s]   pair 125/150
+[   105s] paper case studies
+[   106s] done

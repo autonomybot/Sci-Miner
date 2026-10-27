@@ -1,0 +1,39 @@
+AI-Miner original-FEX-grammar supervised regression
+====================================================
+Source archive: Finite-expression-method-main.zip (fex/*/function.py and controller_*).
+Adaptation: the archive's PDE residual is replaced by E3SM supervised MSE; tree/operators are unchanged.
+depth2 tree; seed=0; random split=70%/30%; candidates=192; search steps=120; finetune steps=400; search rows=2000.
+
+LAKE_SAVEDTKE1
+--------------
+records: 26,283; input: \mathrm{savedtke}_{1}; target: \rho_w
+standardized inputs: u_{1}=(\mathrm{savedtke}_{1}-(3286.8264))/(45791.88)
+normalized expression:
+0.293667027 - 0.30797615\,\cos{\left(3.39003193\,\sin{\left(u_{1} \right)} + 0.447042981 \right)}
+dimensional equation:
+\rho_w=(999.57385)+(0.68474876)\,[0.293667027 - 0.30797615\,\cos{\left(3.39003193\,\sin{\left(u_{1} \right)} + 0.447042981 \right)}]
+choices: {"inner_binary": [2, 1], "inner_unary": [8, 5], "leaf_unary": [7, 7, 6, 0], "root_binary": 1}
+metrics: {"all": {"mae": 0.5203650121694415, "max_abs_error": 2.3577285142157507, "median_abs_error": 0.4208288144952803, "n": 26283, "nrmse": 0.24404671013333806, "r2": 0.0033738574969606194, "rmse": 0.6807211091976043}, "held_out": {"mae": 0.5161041171780182, "max_abs_error": 2.3571181628685736, "median_abs_error": 0.4208859743564517, "n": 7885, "nrmse": 0.2416108264846768, "r2": 0.0037509487052184154, "rmse": 0.6737792152151143}, "train": {"mae": 0.5221911431079878, "max_abs_error": 2.3577285142157507, "median_abs_error": 0.4208288144952803, "n": 18398, "nrmse": 0.24510560182619634, "r2": 0.0031346938969090132, "rmse": 0.6836746828281965}}
+
+LAKE_PATHWAY
+------------
+records: 26,283; input: TKE_1, \mathrm{savedtke}_{1}, \partial_z\rho_w, Ri_1, w_s, k_s; target: \rho_w
+standardized inputs: u_{1}=(TKE_1-(282.48296))/(6.6696933); u_{2}=(\mathrm{savedtke}_{1}-(3286.8264))/(45791.88); u_{3}=(\partial_z\rho_w-(0.11449336))/(0.21625991); u_{4}=(Ri_1-(1063.3811))/(1514.9587); u_{5}=(w_s-(283.96619))/(7.5313545); u_{6}=(k_s-(0.0012005376))/(0.0023385546)
+normalized expression:
+- 0.11995812\,u_{1}^{3} + 0.000103711487\,u_{2}^{3} - 0.00789667996\,u_{3}^{3} + 0.00674933785\,u_{4}^{3} - 0.00835347087\,u_{5}^{3} + 0.039572874\,u_{6}^{3} - 0.0894110809\,\cos{\left(u_{1} \right)} - 0.0756031797\,\cos{\left(u_{2} \right)} + 0.0551965037\,\cos{\left(u_{3} \right)} + 0.0679921906\,\cos{\left(u_{4} \right)} - 0.0226575813\,\cos{\left(u_{5} \right)} - 0.0804759171\,\cos{\left(u_{6} \right)} - 1.36657502\,\cos{\left(- 0.924002036\,\sin{\left(u_{1} \right)} + 0.0433269645\,\sin{\left(u_{2} \right)} + 0.0451326774\,\sin{\left(u_{3} \right)} - 0.0273808587\,\sin{\left(u_{4} \right)} + 0.162268952\,\sin{\left(u_{5} \right)} + 0.387860378\,\sin{\left(u_{6} \right)} + 0.985584226\,\cos{\left(u_{1} \right)} + 0.363969769\,\cos{\left(u_{2} \right)} + 0.14490901\,\cos{\left(u_{3} \right)} - 0.0762798447\,\cos{\left(u_{4} \right)} - 0.0842188697\,\cos{\left(u_{5} \right)} - 0.0702913936\,\cos{\left(u_{6} \right)} + 1.0422315 \right)} - 0.336448314
+dimensional equation:
+\rho_w=(999.57385)+(0.68474876)\,[- 0.11995812\,u_{1}^{3} + 0.000103711487\,u_{2}^{3} - 0.00789667996\,u_{3}^{3} + 0.00674933785\,u_{4}^{3} - 0.00835347087\,u_{5}^{3} + 0.039572874\,u_{6}^{3} - 0.0894110809\,\cos{\left(u_{1} \right)} - 0.0756031797\,\cos{\left(u_{2} \right)} + 0.0551965037\,\cos{\left(u_{3} \right)} + 0.0679921906\,\cos{\left(u_{4} \right)} - 0.0226575813\,\cos{\left(u_{5} \right)} - 0.0804759171\,\cos{\left(u_{6} \right)} - 1.36657502\,\cos{\left(- 0.924002036\,\sin{\left(u_{1} \right)} + 0.0433269645\,\sin{\left(u_{2} \right)} + 0.0451326774\,\sin{\left(u_{3} \right)} - 0.0273808587\,\sin{\left(u_{4} \right)} + 0.162268952\,\sin{\left(u_{5} \right)} + 0.387860378\,\sin{\left(u_{6} \right)} + 0.985584226\,\cos{\left(u_{1} \right)} + 0.363969769\,\cos{\left(u_{2} \right)} + 0.14490901\,\cos{\left(u_{3} \right)} - 0.0762798447\,\cos{\left(u_{4} \right)} - 0.0842188697\,\cos{\left(u_{5} \right)} - 0.0702913936\,\cos{\left(u_{6} \right)} + 1.0422315 \right)} - 0.336448314]
+choices: {"inner_binary": [0, 0], "inner_unary": [2, 8], "leaf_unary": [4, 8, 7, 8], "root_binary": 2}
+metrics: {"all": {"mae": 0.041985219926506466, "max_abs_error": 3.6910932484984187, "median_abs_error": 0.023194645042167394, "n": 26283, "nrmse": 0.029382810457097723, "r2": 0.9855531545415513, "rmse": 0.08195766832820837}, "held_out": {"mae": 0.042243955066415824, "max_abs_error": 2.706173506441246, "median_abs_error": 0.023054763230334174, "n": 7885, "nrmse": 0.030957632818115935, "r2": 0.9836442437865736, "rmse": 0.08633143575803585}, "train": {"mae": 0.04187433142894231, "max_abs_error": 3.6910932484984187, "median_abs_error": 0.023277070686276602, "n": 18398, "nrmse": 0.028684548839914822, "r2": 0.9863470639976218, "rmse": 0.08001000256250655}}
+
+METHANE_CONCENTRATION
+---------------------
+records: 8,746; input: \mathrm{conc}_{\mathrm{CH_4,sat,col}}; target: t_{\mathrm{soisno}}
+standardized inputs: u_{1}=(\mathrm{conc}_{\mathrm{CH_4,sat,col}}-(0.00028402955))/(0.00016870487)
+normalized expression:
+2.10584212\,\left(\cos{\left(u_{1} \right)} + 0.457202653\right)^{2} - 2.06944027\,\cos{\left(- 0.355387458\,u_{1}^{3} + 0.668613631\,e^{u_{1}} + 0.0901316199 \right)} - 1.65934475
+dimensional equation:
+t_{\mathrm{soisno}}=(282.31784)+(7.5977466)\,[2.10584212\,\left(\cos{\left(u_{1} \right)} + 0.457202653\right)^{2} - 2.06944027\,\cos{\left(- 0.355387458\,u_{1}^{3} + 0.668613631\,e^{u_{1}} + 0.0901316199 \right)} - 1.65934475]
+choices: {"inner_binary": [2, 2], "inner_unary": [3, 8], "leaf_unary": [8, 1, 6, 4], "root_binary": 2}
+metrics: {"all": {"mae": 0.9981347557978869, "max_abs_error": 4.009268156507687, "median_abs_error": 0.8245018894849636, "n": 8746, "nrmse": 0.05487529265470939, "r2": 0.9725410115439826, "rmse": 1.2638348613265606}, "held_out": {"mae": 0.9805756145584811, "max_abs_error": 4.009194925194208, "median_abs_error": 0.8028803985222055, "n": 2624, "nrmse": 0.05396472858494301, "r2": 0.9739089710550858, "rmse": 1.242853745875301}, "train": {"mae": 1.0056609215300334, "max_abs_error": 4.009268156507687, "median_abs_error": 0.8289602541134968, "n": 6122, "nrmse": 0.05526116300331627, "r2": 0.9719393715443198, "rmse": 1.2727218553621134}}
+

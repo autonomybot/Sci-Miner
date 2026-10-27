@@ -1,0 +1,15 @@
+metric,e3sm.csv,neo4j export
+raw_rows,30651.0,62869.0
+rows_with_missing_fields,14017.0,367.0
+unique_valid_rows,30583.0,62864.0
+files,1319.0,1390.0
+equations_with_source_file,6011.0,21304.0
+scientific_symbols_kept,1470.0,6173.0
+symbols_dropped_(markup/numbers/descriptions),3.0,808.0
+equations_in_search_graph,4060.0,1326.0
+edges_in_search_graph,8837.0,13810.0
+connected_components,322.0,65.0
+largest_component_nodes,4567.0,6949.0
+largest_component_share,0.8259,0.9267
+median_symbol_degree,2.0,1.0
+max_symbol_degree,502.0,136.0

@@ -1,0 +1,13 @@
+relationship,check,edges,passed,chance,rate
+has,file exists in Fortran folder,1400,1400,,1.0
+contains,symbol is an identifier of its file (all),14288,14288,,1.0
+contains,symbol is an identifier of its file (identifier-like symbols),14254,14254,0.04532061175810299,1.0
+contains,"same, ignoring underscores/sub-script marks (lenient)",14254,14254,,1.0
+encodes,source file exists,6050,6050,,1.0
+encodes,>= 50% of equation identifiers found in its file,6050,6050,0.043801652892561986,1.0
+hasVariable,symbol occurs in the equation text (all),8536,7237,,0.8478209934395501
+hasVariable,"symbol is an identifier of the equation's file (identifier-like, file found)",8533,8533,0.10512129380053908,1.0
+hasVariable,"same, lenient identifier match",8533,8533,,1.0
+hasConstant,symbol occurs in the equation text (all),309,279,,0.9029126213592233
+hasConstant,"symbol is an identifier of the equation's file (identifier-like, file found)",309,309,0.10679611650485436,1.0
+hasConstant,"same, lenient identifier match",309,309,,1.0

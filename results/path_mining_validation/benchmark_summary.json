@@ -1,0 +1,18 @@
+{
+ "queries": 150,
+ "connected": 138,
+ "connected_share": 0.92,
+ "median_equations_best": 4.0,
+ "median_hub_degree_best": 56.0,
+ "median_hub_degree_naive": 59.0,
+ "mean_V_best": 0.7631786289394986,
+ "mean_V_naive": 0.7293363239015414,
+ "mean_score_best": 0.9144705903833621,
+ "mean_score_naive": 0.8917058624328938,
+ "verified_share_best": 0.2826086956521739,
+ "partial_share_best": 0.717391304347826,
+ "rejected_share_best": 0.0,
+ "verified_share_naive": 0.15942028985507245,
+ "ranking_changed_top_path": 0.35507246376811596,
+ "candidate_verified_share": 0.15434782608695652
+}

@@ -1,0 +1,94 @@
+AI-Miner lake-density pathway audit
+====================================
+
+Question: reproduce rho_w as a function of savedtke1 for the lake pathway.
+The supplied FEX archive was not imported or executed; the finite search below is written in this repository.
+
+Fortran source references:
+  - data/input/fortran/LakeTemperatureMod.F90:355-372 (drhodz, n2, ri)
+  - data/input/fortran/LakeTemperatureMod.F90:372-380 (ke, fangkm, kme, deep mixing)
+  - data/input/fortran/LakeTemperatureMod.F90:425 (savedtke1 = kme(c,1)*cwat)
+  - data/input/fortran/LakeCon.F90:105-116 (depthcrit, mixfact, lake_no_ed defaults)
+  - data/input/fortran/bshr_const_mod.F90:25,46,52 (g, fresh-water density, heat capacity)
+
+Symbolic checks:
+  Equation 7a, rho_w rearrangement: PASS
+  Equation 7b, simplified Ri^2 rearrangement under no-Fang/no-deep-mixing branch: PASS
+
+Equations considered:
+  rho rearrangement: \rho_w = \frac{g(\kappa z)^2 e^{-2k_s z}}{w_s^2\,Ri(10Ri+1)}\,\frac{\partial\rho_w}{\partial z}
+  simplified Ri^2: Ri^2 = \frac{1}{37}\left(\frac{\kappa w_s z c_{wat}e^{-k_s z}}{savedtke_1-k_m c_{wat}}-1\right)
+  full Fortran branch: Ri^2 = \frac{1}{37}\left(\frac{\kappa w_s z e^{-k_s z}}{p_0\,\left(savedtke_1/(c_{wat}M)-k_m-F\right)}-1\right), F=1.039\times10^{-8}\max(N^2,N^2_{min})^{-0.43}
+  direct full-branch rho_w(S): \rho_w(S)=\frac{g(\kappa z)^2e^{-2k_s z}}{w_s^2R(S)(10R(S)+1)}\frac{\partial\rho_w}{\partial z},\quadR(S)=\sqrt{\frac{1}{37}\left[\frac{\kappa w_sze^{-k_sz}}{p_0(S/(c_{wat}M)-k_m-F)}-1\right]}
+
+Fortran branch decision:
+  The rho_w rearrangement is algebraically correct when the Ri equation is active without denominator clipping.
+  The displayed Ri^2 equation is conditional: it omits Fang-Stefan diffusivity and deep-mixing scaling.
+  lake_no_ed default in LakeCon.F90: False; Fang-Stefan term is therefore active by default.
+  deep-mixing factor: M=1 for shallow lakes, M=10 when lake depth >= 25 m.
+  Therefore the simplified two-equation pathway is not the default full Fortran equation.
+
+Numeric audit of supplied history columns:
+  rows: 8,776
+  z(level 1), z(level 2): 4.7399893, 6.3275938 m
+  derived savedtke1 range: 0.89677476 to 34749.849
+  LAKE_WS range: 274.37991 to 299.13364; source sanity threshold is <100 m/s
+  Eq. rho rearrangement replay rows after source sanity filter: 0; RMSE=nan; R2=nan
+  Simplified Ri^2 comparison rows after source sanity filter: 0; RMSE=nan; R2=nan
+  The supplied LAKE_WS/LAKE_RI history fields fail the source-variable sanity check, so these replay metrics are diagnostic only.
+
+Published one-variable surrogate audit:
+  rho_w = 1001.4774 + 0.14073 ln(x + 4.547e-10) - 6.399e-11/(x + 4.547e-10)
+  corrected savedtke1 form: rho_w = 1001.4774 + 0.14073 ln(savedtke1/cwat + 4.547e-10) - 6.399e-11/(savedtke1/cwat + 4.547e-10)
+  interpreting x as level-1 LAKE_KME: n=8,761; MAE=0.73398715; RMSE=0.92141728; R2=-0.016870796
+  interpreting x as Fortran savedtke1=cwat*KME: n=8,761; MAE=2.4506878; RMSE=2.6003715; R2=-7.0988596
+  interpreting x as savedtke1/cwat: n=8,761; MAE=0.73398715; RMSE=0.92141728; R2=-0.016870796
+  Conclusion: the printed coefficients are numerically a KME surrogate. The valid savedtke1 reparameterization is obtained by replacing x with savedtke1/cwat; the manuscript table uses that conversion and remains subject to independent validation.
+
+Finite-expression search: rho_w = f(savedtke1)
+  Split: first 70% of rows for fitting, final 30% for a screening holdout; no shuffle.
+  Coefficients are least-squares estimates after selecting a finite operator/shift structure.
+  Ranking score = validation RMSE / training-target SD + 0.002 * expression complexity.
+
+  01. constant: 999.0916235 | train RMSE=1.0033491, screening RMSE=0.70201962, screening R2=-0.65607117, score=0.70167634
+  02. linear: 999.0891494 + 0.0001364313654*savedtke1 | train RMSE=1.0022735, screening RMSE=0.72025616, screening R2=-0.74322908, score=0.721852
+  03. log_inverse_shift_0: 1001.35169 + -0.3103039172*ln(savedtke1/1.5571112 + 0) + -2.125523617/(savedtke1/1.5571112 + 0) | train RMSE=0.42453298, screening RMSE=0.7315698, screening R2=-0.79842377, score=0.73512788
+  04. log_inverse_shift_1e-06: 1001.351692 + -0.3103042323*ln(savedtke1/1.5571112 + 1e-06) + -2.125527907/(savedtke1/1.5571112 + 1e-06) | train RMSE=0.42453318, screening RMSE=0.73156999, screening R2=-0.79842469, score=0.73512807
+  05. log_inverse_shift_0.0001: 1001.351885 + -0.3103354291*ln(savedtke1/1.5571112 + 0.0001) + -2.125952579/(savedtke1/1.5571112 + 0.0001) | train RMSE=0.42455248, screening RMSE=0.73158853, screening R2=-0.79851587, score=0.73514655
+  06. log_inverse_shift_0.01: 1001.371212 + -0.3134454241*ln(savedtke1/1.5571112 + 0.01) + -2.168531323/(savedtke1/1.5571112 + 0.01) | train RMSE=0.42646871, screening RMSE=0.73343737, screening R2=-0.80761762, score=0.73698922
+  07. log_inverse_shift_0.1: 1001.544032 + -0.3409702522*ln(savedtke1/1.5571112 + 0.1) + -2.565721503/(savedtke1/1.5571112 + 0.1) | train RMSE=0.44270567, screening RMSE=0.74985222, screening R2=-0.88943455, score=0.75334927
+  08. sqrt_shift_100: 998.8805944 + 0.02047849163*sqrt(savedtke1/1.5571112 + 100) | train RMSE=1.0008502, screening RMSE=0.77432236, screening R2=-1.0147636, score=0.77573773
+  09. sqrt_shift_10: 999.0029801 + 0.02419725333*sqrt(savedtke1/1.5571112 + 10) | train RMSE=0.99904678, screening RMSE=0.8562226, screening R2=-1.4635074, score=0.85736459
+  10. log_shift_100: 996.8434937 + 0.4845367836*ln(savedtke1/1.5571112 + 100) | train RMSE=0.9972983, screening RMSE=0.90645501, screening R2=-1.7610419, score=0.90742933
+  11. log_inverse_shift_1: 1003.105253 + -0.5815696592*ln(savedtke1/1.5571112 + 1) + -7.452672732/(savedtke1/1.5571112 + 1) | train RMSE=0.54441135, screening RMSE=0.9065614, screening R2=-1.7616901, score=0.90953537
+  12. log_inverse_shift_100: 1011.745358 + -1.446556025*ln(savedtke1/1.5571112 + 100) + -607.9751001/(savedtke1/1.5571112 + 100) | train RMSE=0.977983, screening RMSE=0.95199266, screening R2=-2.0454235, score=0.95481498
+  13. quadratic: 999.0865204 + 0.0005854369043*savedtke1 + -4.743305346e-08*savedtke1^2 | train RMSE=1.0012277, screening RMSE=0.98674, screening R2=-2.271794, score=0.98944633
+  14. sqrt_shift_1: 999.0358149 + 0.03052201767*sqrt(savedtke1/1.5571112 + 1) | train RMSE=0.99599147, screening RMSE=0.99227343, screening R2=-2.308592, score=0.99296129
+  15. sqrt_shift_0.1: 999.0415467 + 0.03386232669*sqrt(savedtke1/1.5571112 + 0.1) | train RMSE=0.99413735, screening RMSE=1.0697249, screening R2=-2.8452509, score=1.0701542
+  16. sqrt_shift_0.01: 999.0421955 + 0.03441405256*sqrt(savedtke1/1.5571112 + 0.01) | train RMSE=0.99381298, screening RMSE=1.0828572, screening R2=-2.9402416, score=1.0832427
+  17. sqrt_shift_0.0001: 999.0422679 + 0.03447926211*sqrt(savedtke1/1.5571112 + 0.0001) | train RMSE=0.99377429, screening RMSE=1.0844153, screening R2=-2.9515887, score=1.0847956
+  18. sqrt_shift_1e-06: 999.0422686 + 0.03447991915*sqrt(savedtke1/1.5571112 + 1e-06) | train RMSE=0.9937739, screening RMSE=1.084431, screening R2=-2.9517032, score=1.0848112
+  19. sqrt_shift_0: 999.0422686 + 0.03447992579*sqrt(savedtke1/1.5571112 + 0) | train RMSE=0.9937739, screening RMSE=1.0844311, screening R2=-2.9517043, score=1.0848114
+  20. log_inverse_shift_10: 1009.337512 + -1.389685577*ln(savedtke1/1.5571112 + 10) + -77.94872242/(savedtke1/1.5571112 + 10) | train RMSE=0.83312343, screening RMSE=1.3289797, screening R2=-4.9349516, score=1.3305437
+  21. log_shift_10: 997.8117537 + 0.5170813985*ln(savedtke1/1.5571112 + 10) | train RMSE=0.97831416, screening RMSE=1.3585343, screening R2=-5.2018562, score=1.3579996
+  22. log_shift_1: 998.5299079 + 0.6505276439*ln(savedtke1/1.5571112 + 1) | train RMSE=0.89420651, screening RMSE=2.1820132, screening R2=-14.999089, score=2.1787298
+  23. log_shift_0.1: 998.9014952 + 0.665231792*ln(savedtke1/1.5571112 + 0.1) | train RMSE=0.81729362, screening RMSE=2.4264564, screening R2=-18.784519, score=2.4223571
+  24. log_shift_0.01: 998.9599865 + 0.6625586151*ln(savedtke1/1.5571112 + 0.01) | train RMSE=0.80268647, screening RMSE=2.4462928, screening R2=-19.109319, score=2.4421272
+  25. log_shift_0.0001: 998.9668132 + 0.6621511374*ln(savedtke1/1.5571112 + 0.0001) | train RMSE=0.8009274, screening RMSE=2.448247, screening R2=-19.14146, score=2.4440749
+  26. log_shift_1e-06: 998.9668819 + 0.6621469346*ln(savedtke1/1.5571112 + 1e-06) | train RMSE=0.80090965, screening RMSE=2.4482662, screening R2=-19.141777, score=2.4440941
+  27. log_shift_0: 998.9668826 + 0.6621468921*ln(savedtke1/1.5571112 + 0) | train RMSE=0.80090947, screening RMSE=2.4482664, screening R2=-19.14178, score=2.4440943
+
+BEST SOURCE EQUATION
+--------------------
+\rho_w(S)=\frac{g(\kappa z)^2e^{-2k_s z}}{w_s^2R(S)(10R(S)+1)}\frac{\partial\rho_w}{\partial z},\quadR(S)=\sqrt{\frac{1}{37}\left[\frac{\kappa w_sze^{-k_sz}}{p_0(S/(c_{wat}M)-k_m-F)}-1\right]}
+This is the source-faithful expression for savedtke1 S when the active Fortran branch is known (including F and M).
+The Fang-Stefan term F depends on N^2 = (g/rho_w) d(rho_w)/dz, so this remains an implicit source relation rather than a one-variable closed form.
+
+BEST EMPIRICAL CANDIDATE
+------------------------
+rho_w = 999.0916235
+candidate: constant
+screening RMSE: 0.7020196231
+screening R2: -0.6560711741
+This is an empirical one-variable candidate from the supplied history output; it is not a replacement for the full implicit Fortran branch.
+No validation conclusion is made here. Independent E3SM validation belongs to the later validation folder.

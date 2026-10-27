@@ -1,0 +1,3 @@
+method,queries,connected_share,median_steps,median_max_degree,verified_share,partially_or_verified
+Sci-Miner (equation chain),138,0.92,4.0,56.0,0.2826086956521739,1.0
+"Definition-use chain (name-based, on the Sci-Miner-connected queries)",138,0.6521739130434783,4.0,1411.0,,
