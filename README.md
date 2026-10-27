@@ -10,9 +10,10 @@ for relationship exploration, equation discovery, and numerical validation.**
 <br>
 
 [![Data](https://img.shields.io/badge/Data-Available-2E8B57?style=flat-square)](#data)
-[![Code](https://img.shields.io/badge/Source%20Code-Coming%20Soon-F39C12?style=flat-square)](#source-code)
-[![Model](https://img.shields.io/badge/Scientific%20Model-E3SM-4169E1?style=flat-square)](https://e3sm.org/)
-[![Graph](https://img.shields.io/badge/Science%20Graph-Neo4j-018BFF?style=flat-square)](https://neo4j.com/)
+[![Source Code](https://img.shields.io/badge/Source%20Code-Available-2E8B57?style=flat-square)](#source-code)
+[![Interactive App](https://img.shields.io/badge/Interactive%20App-Coming%20Soon-F39C12?style=flat-square)](#interactive-app)
+[![Scientific Model](https://img.shields.io/badge/Scientific%20Model-E3SM-4169E1?style=flat-square)](https://e3sm.org/)
+[![Science Graph](https://img.shields.io/badge/Science%20Graph-Neo4j-018BFF?style=flat-square)](https://neo4j.com/)
 
 </div>
 
