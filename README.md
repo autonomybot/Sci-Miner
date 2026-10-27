@@ -59,7 +59,7 @@ connected scientific representation.
   <img src="figures/Figure 02.png" width="850" alt="Science graph">
 </p>
 
-[Click the preview to open the interactive science graph in Cosmograph.](https://cosmograph.app/run/?data=https://https://raw.githubusercontent.com/autonomybot/Sci-Miner/refs/heads/main/data/output/e3sm.csv)
+[Click the preview to open the interactive science graph in Cosmograph.](https://cosmograph.app/run/?data=https://raw.githubusercontent.com/autonomybot/Sci-Miner/refs/heads/main/data/output/e3sm.csv)
 
 ### 2. Trace a scientific pathway
 
